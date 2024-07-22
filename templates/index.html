@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在室管理システム</title>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>在室管理システム</h1>
+    <p>現在のステータス: 
+        {% if a == ENTRY %}
+            在室
+        {% elif a == 2 %}
+            帰宅
+        {% elif a == 3 %}
+            外出
+        {% else %}
+            未設定
+        {% endif %}
+    </p>
+    <a href="{% url 'api:status' %}" class="button">現在の在室状況</a>
+    <a href="{% url 'api:activity' %}" class="button">本日の活動</a>
+    <a href="{% url 'api:who' %}" class="button">在室状況</a>
+</body>
+</html>
+
+
