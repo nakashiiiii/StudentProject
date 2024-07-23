@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
@@ -63,6 +63,7 @@
 <body>
     <h1>在室管理システム</h1>
     <p id="status">現在のステータス: 未設定</p>
+    <p id="status" class = "button">現在のステータス: 未設定</p>
     <a id="status-button" href="{% url 'api:status' %}" class="button">状態変更</a>
     <a href="{% url 'api:activity' %}" class="button">本日の活動</a>
     <a href="{% url 'api:who' %}" class="button">在室状況</a>
@@ -71,6 +72,78 @@
     <button class="button" onclick="toggleB()">bの値を変更</button>
 </body>
 </html>
+ -->
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在室管理システム</title>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        let b = 0;
+
+        function toggleStatus() {
+            b = b === 0 ? 1 : 0;
+            updateStatus();
+            toggleStatusButton();
+        }
+
+        function updateStatus() {
+            let status;
+            if (b === 0) {
+                status = "在室";
+            } else if (b === 1) {
+                status = "不在";
+            } else {
+                status = "未設定";
+            }
+            document.getElementById('status').innerText = `現在のステータス: ${status}`;
+        }
+
+        function toggleStatusButton() {
+            const statusButton = document.getElementById('status-button');
+            if (b === 0) {
+                statusButton.style.display = 'inline-block';
+            } else {
+                statusButton.style.display = 'none';
+            }
+        }
+
+        window.onload = function() {
+            updateStatus();
+            toggleStatusButton();
+        }
+    </script>
+</head>
+<body>
+    <h1>在室管理システム</h1>
+    <p id="status" class="button" onclick="toggleStatus()">現在のステータス: 未設定</p>
+    <a id="status-button" href="{% url 'api:status' %}" class="button">状態変更</a>
+    <a href="{% url 'api:activity' %}" class="button">本日の活動</a>
+    <a href="{% url 'api:who' %}" class="button">在室状況</a>
+    
+    <!-- <p id="b-status">bの値: 0</p> -->
+</body>
+</html>
 
 
