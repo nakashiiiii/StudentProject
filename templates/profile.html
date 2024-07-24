@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+    <h2>{{ student.name }}'s Profile</h2>
+    <p>Student ID: {{ student.student_id }}</p>
+    <p>Grade: {{ student.grade }}</p>
+    <p>Lab: {{ student.lab }}</p>
+    <p>Status: {{ student.is_present|yesno:"Present,Absent" }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">
+            {% if student.is_present %} Mark as Absent {% else %} Mark as Present {% endif %}
+        </button>
+    </form>
+</body>
+</html>

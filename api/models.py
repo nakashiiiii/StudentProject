@@ -133,3 +133,13 @@ class Diary(models.Model):
     text = models.CharField(verbose_name='本文', max_length=200)
     created_at = models.DateTimeField(verbose_name='作成日時', default=timezone.now)
     updated_at = models.DateTimeField(verbose_name='編集日時', blank=True, null=True)
+
+class Student(models.Model):
+    name = models.CharField(max_length=100)
+    student_id = models.CharField(max_length=20, unique=True)
+    grade = models.CharField(max_length=10)
+    lab = models.CharField(max_length=100)
+    is_present = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
