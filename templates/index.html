@@ -74,6 +74,7 @@
 </html>
  -->
 
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -142,8 +143,228 @@
     <a href="{% url 'api:activity' %}" class="button">本日の活動</a>
     <a href="{% url 'api:who' %}" class="button">在室状況</a>
     
-    <!-- <p id="b-status">bの値: 0</p> -->
 </body>
 </html>
 
 
+<!--<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在室管理システム</title>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        let b = 0;
+
+        function toggleStatus() {
+            b = b === 0 ? 1 : 0;
+            updateStatus();
+            toggleStatusButton();
+        }
+
+        function updateStatus() {
+            let status;
+            if (b === 0) {
+                status = "在室";
+            } else if (b === 1) {
+                status = "不在";
+            } else {
+                status = "未設定";
+            }
+            document.getElementById('status').innerText = `現在のステータス: ${status}`;
+        }
+
+        function toggleStatusButton() {
+            const statusButton = document.getElementById('status-button');
+            const detailedStatusButtons = document.getElementById('detailed-status-buttons');
+            if (b === 0) {
+                statusButton.style.display = 'inline-block';
+                detailedStatusButtons.classList.add('hidden');
+            } else {
+                statusButton.style.display = 'none';
+                detailedStatusButtons.classList.remove('hidden');
+            }
+        }
+
+        function updateDetailedStatus(status) {
+            document.getElementById('status').innerText = `現在のステータス: ${status}`;
+            document.getElementById('detailed-status-buttons').classList.add('hidden');
+            document.getElementById('status-button').style.display = 'inline-block';
+        }
+
+        window.onload = function() {
+            updateStatus();
+            toggleStatusButton();
+        }
+    </script>
+</head>
+<body>
+    <h1>在室管理システム</h1>
+    <p id="status" class="button" onclick="toggleStatus()">現在のステータス: 未設定</p>
+    <button id="status-button" class="button" onclick="toggleStatus()">状態変更</button>
+
+    <div id="detailed-status-buttons" class="hidden">
+        <button type="button" class="button" onclick="updateDetailedStatus('学内')">学内</button>
+        <button type="button" class="button" onclick="updateDetailedStatus('学外')">学外</button>
+        <button type="button" class="button" onclick="updateDetailedStatus('講義')">講義</button>
+        <button type="button" class="button" onclick="updateDetailedStatus('TA')">TA</button>
+    </div>
+
+    <a href="{% url 'api:activity' %}" class="button">本日の活動</a>
+    <a href="{% url 'api:who' %}" class="button">在室状況</a>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在室管理システム</title>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function updateStatus(status) {
+            document.getElementById('status').innerText = `現在のステータス: ${status}`;
+        }
+
+        window.onload = function() {
+            const status = "{{ status }}";  // Djangoテンプレートからステータスを取得
+            updateStatus(status);
+        }
+    </script>
+</head>
+<body>
+    <h1>在室管理システム</h1>
+    <p id="status" class="button">現在のステータス: 未設定</p>
+    <a href="{% url 'api:status' %}" class="button">状態変更</a>
+    <a href="{% url 'api:activity' %}" class="button">本日の活動</a>
+    <a href="{% url 'api:who' %}" class="button">在室状況</a>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在室管理システム</title>
+    <style>
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .status-options {
+            display: flex;
+            flex-wrap: wrap;
+            border: 2px solid #007bff;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+    <script>
+        let b = 0;
+
+        function toggleStatus() {
+            b = b === 0 ? 1 : 0;
+            toggleStatusButton();
+        }
+
+        function toggleStatusButton() {
+            const detailedStatusButtons = document.getElementById('detailed-status-buttons');
+            if (b === 0) {
+                detailedStatusButtons.classList.add('hidden');
+            } else {
+                detailedStatusButtons.classList.remove('hidden');
+            }
+        }
+
+        function updateDetailedStatus(status) {
+            document.getElementById('status').innerText = `現在のステータス: ${status}`;
+            document.getElementById('detailed-status-buttons').classList.add('hidden');
+            b = 0;
+        }
+
+        window.onload = function() {
+            document.getElementById('detailed-status-buttons').classList.add('hidden');
+        }
+    </script>
+</head>
+<body>
+    <h1>在室管理システム</h1>
+    <p id="status">現在のステータス: 未設定</p>
+    <button id="status-button" class="button" onclick="toggleStatus()">状態変更</button>
+
+    <div id="detailed-status-buttons" class="status-options hidden">
+        <button type="button" class="button" onclick="updateDetailedStatus('在室')">在室</button>
+        <button type="button" class="button" onclick="updateDetailedStatus('帰宅')">帰宅</button>
+        <button type="button" class="button" onclick="updateDetailedStatus('外出')">外出</button>
+        <button type="button" class="button" onclick="updateDetailedStatus('講義')">講義</button>
+        <button type="button" class="button" onclick="updateDetailedStatus('TA')">TA</button>
+    </div>
+
+    <a href="{% url 'api:activity' %}" class="button">本日の活動</a>
+    <a href="{% url 'api:who' %}" class="button">在室状況</a>
+</body>
+</html>
+-->

@@ -143,3 +143,20 @@ class Student(models.Model):
 
     def __str__(self):
         return self.name
+'''
+#ステータス変更
+class Student(models.Model):
+    name = models.CharField(max_length=100)
+    student_id = models.CharField(max_length=10, unique=True)
+    is_present = models.BooleanField(default=False)
+    
+    STATUS_CHOICES = [
+        ('在室', '在室'),
+        ('帰宅', '帰宅'),
+        ('外出', '外出'),
+    ]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='未設定')
+    
+    def __str__(self):
+        return self.name
+        '''
