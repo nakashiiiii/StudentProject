@@ -61,10 +61,16 @@ def profile(request, student_id):
 from django.views.generic import TemplateView, CreateView
 from django.urls import reverse_lazy
 from .forms import DiaryForm
-from .models import Diary, Student
-from django.shortcuts import render, redirect
+from .models import Diary, Student, Person
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import StudentRegistrationForm, LoginForm
 from django.urls import reverse
+
+def person_detail(request, student_id):
+    person = get_object_or_404(Person, student_id=student_id)
+    return render(request, 'index2.html', {'person': person})
+
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'

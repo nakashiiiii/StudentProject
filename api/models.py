@@ -39,6 +39,8 @@ class Person(models.Model):
     def __str__(self):
         # 表示される文字列を定義
         return f"{self.full_name} ({self.student_id})"
+    
+
 
 
 # RoomOccupancyクラスは個人の研究室における入退室を管理します
